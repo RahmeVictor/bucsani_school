@@ -1,12 +1,11 @@
 from rest_framework.mixins import ListModelMixin
-from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from bucsani_school.models import Post, GalleryImage, Document
-from bucsani_school.serializers import PostSerializer, GallerySerializer, DocumentSerializer
+from bucsani_school.models import Post, GalleryImage, Document, Description
+from bucsani_school.serializers import PostSerializer, GallerySerializer, DocumentSerializer, DescriptionSerializer
 
 
-class PostAPI(ListModelMixin, GenericViewSet):
+class PostAPI(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
@@ -16,11 +15,16 @@ class PostAPI(ListModelMixin, GenericViewSet):
     #     return Response(serializer.data)
 
 
-class GalleryAPI(ListModelMixin, GenericViewSet):
+class GalleryAPI(ModelViewSet):
     queryset = GalleryImage.objects.all()
     serializer_class = GallerySerializer
 
 
-class DocumentsAPI(ListModelMixin, GenericViewSet):
+class DocumentsAPI(ModelViewSet):
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
+
+
+class DescriptionAPI(ModelViewSet):
+    queryset = Description.objects.all()
+    serializer_class = DescriptionSerializer

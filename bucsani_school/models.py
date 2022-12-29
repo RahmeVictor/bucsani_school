@@ -53,3 +53,11 @@ class Document(Model):
 
     def __str__(self):
         return self.document.name
+
+
+class Description(Model):
+    description = TextField()
+    contact = TextField()
+
+    def __str__(self):
+        return self.description
