@@ -2,7 +2,7 @@ from django.db.models import (
     Model,
     CharField,
     TextField,
-    DateTimeField, ImageField, ManyToManyField, ForeignKey, CASCADE, FileField,
+    DateTimeField, ManyToManyField, ForeignKey, CASCADE, FileField, URLField
 )
 
 
@@ -14,7 +14,7 @@ class PostType(Model):
 
 
 class Post(Model):
-    preview_image = ImageField(upload_to='media')
+    preview_image = URLField(blank=True)
     title = CharField(max_length=250)
     author = CharField(max_length=100)
     body = TextField()
@@ -26,11 +26,11 @@ class Post(Model):
 
 
 class PostImage(Model):
-    image = ImageField(upload_to='images')
+    image = URLField(blank=True)
     post = ForeignKey(Post, on_delete=CASCADE, related_name='images')
 
     def __str__(self):
-        return self.image.name
+        return self.post.title
 
 
 class PostFile(Model):
@@ -42,10 +42,7 @@ class PostFile(Model):
 
 
 class GalleryImage(Model):
-    image = ImageField(upload_to='gallery')
-
-    def __str__(self):
-        return self.image.name
+    image = URLField(blank=True)
 
 
 class Document(Model):
@@ -56,9 +53,9 @@ class Document(Model):
 
 
 class SiteConfig(Model):
-    background = ImageField(upload_to='internal')
-    description = TextField()
-    contact = TextField()
+    background = URLField(blank=True)
+    description = TextField(blank=True)
+    contact = TextField(blank=True)
 
     def __str__(self):
         return "Site configuration"
