@@ -20,7 +20,7 @@ class PostAdmin(NestedModelAdmin):
     extra = 0
     # list_display = ('__str__', 'action')
     inlines = [PostImageAdmin, PostFileAdmin]
-    filter_horizontal = ["type"]
+    # filter_horizontal = ["type"]
 
     # def action(self, obj):
     #     return format_html('<a class="btn" href="/admin/my_app/my_model/{}/delete/">Delete</a>', obj.id)

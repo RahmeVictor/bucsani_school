@@ -2,7 +2,7 @@ from django.db.models import (
     Model,
     CharField,
     TextField,
-    DateTimeField, ManyToManyField, ForeignKey, CASCADE, FileField, URLField
+    DateTimeField, ForeignKey, CASCADE, FileField, URLField, SET_NULL
 )
 
 
@@ -18,7 +18,7 @@ class Post(Model):
     title = CharField(max_length=250)
     author = CharField(max_length=100)
     body = TextField()
-    type = ManyToManyField(PostType)
+    type = ForeignKey(PostType, on_delete=SET_NULL, null=True)
     date = DateTimeField(auto_now_add=True)
 
     def __str__(self):
