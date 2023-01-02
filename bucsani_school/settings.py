@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
     "corsheaders",
     'nested_admin',
 ]
@@ -141,12 +142,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # TODO delete this in production
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "bucsani_school.settings.DjangoModelPermissionsWithRead",
+    # ],
 
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
