@@ -1,11 +1,10 @@
-from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import RetrieveModelMixin
+from rest_framework import status
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin, ListModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from bucsani_school.models import Post, GalleryImage, Document, Description, SiteConfig
-from bucsani_school.serializers import PostSerializer, GallerySerializer, DocumentSerializer, DescriptionSerializer, \
-    SiteConfigSerializer
+from bucsani_school.models import Post, GalleryImage, Document, SiteConfig
+from bucsani_school.serializers import PostSerializer, GallerySerializer, DocumentSerializer, SiteConfigSerializer
 
 
 class PostAPI(ModelViewSet):
@@ -28,14 +27,17 @@ class DocumentsAPI(ModelViewSet):
     serializer_class = DocumentSerializer
 
 
-class DescriptionAPI(ModelViewSet):
-    queryset = Description.objects.all()
-    serializer_class = DescriptionSerializer
-
-
-class SiteConfigAPI(ModelViewSet):
+class SiteConfigAPI(GenericViewSet, ListModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = SiteConfig.objects.all()
     serializer_class = SiteConfigSerializer
+
+    def get_queryset(self):
+        qs = SiteConfig.objects.all()
+        if not qs.exists():
+            configObj = SiteConfig.objects.create()
+            configObj.save()
+
+        return SiteConfig.objects.all()
 
     def list(self, request, *args, **kwargs):
         config = self.get_queryset().first()

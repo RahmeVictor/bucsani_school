@@ -14,12 +14,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from .models import User, Invite
+from .models import User
 from .serializers import (
     UserSerializer,
     UserCreateSerializer,
     ChangePasswordSerializer,
-    InviteSerializer,
     PermissionSerializer,
     GroupSerializer,
 )
@@ -69,13 +68,6 @@ class ChangePasswordView(UpdateAPIView):
         token, created = Token.objects.get_or_create(user=user)
         # Return new token
         return Response({"token": token.key}, status=status.HTTP_200_OK)
-
-
-class GenerateInviteView(
-    GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin
-):
-    serializer_class = InviteSerializer
-    queryset = Invite.objects.all()
 
 
 # class LoginView(APIView):

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from nested_admin.nested import NestedModelAdmin, NestedStackedInline
 
-from bucsani_school.models import PostType, Post, PostImage, PostFile, GalleryImage, Document, Description
+from bucsani_school.models import PostType, Post, PostImage, PostFile, GalleryImage, Document, SiteConfig
 
 
 class PostFileAdmin(NestedStackedInline):
@@ -26,4 +26,4 @@ class PostAdmin(NestedModelAdmin):
     #     return format_html('<a class="btn" href="/admin/my_app/my_model/{}/delete/">Delete</a>', obj.id)
 
 
-admin.site.register([PostType, GalleryImage, Document, Description])
+admin.site.register([PostType, GalleryImage, Document, SiteConfig])

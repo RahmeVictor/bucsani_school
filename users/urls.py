@@ -6,7 +6,6 @@ from users.views import (
     UserAPI,
     CurrentUserView,
     ChangePasswordView,
-    GenerateInviteView,
     SignupView,
     PermissionView,
     GroupView,
@@ -19,7 +18,6 @@ app_name = "users"
 router = routers.DefaultRouter()
 router.register(r"user", UserAPI)
 router.register(r"signup", SignupView)
-router.register(r"invite", GenerateInviteView)
 router.register(r"group", GroupView)
 router.register(r"permission", PermissionView)
 

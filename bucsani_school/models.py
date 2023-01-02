@@ -55,13 +55,10 @@ class Document(Model):
         return self.document.name
 
 
-class Description(Model):
+class SiteConfig(Model):
+    background = ImageField(upload_to='internal')
     description = TextField()
     contact = TextField()
 
     def __str__(self):
-        return self.description
-
-
-class SiteConfig(Model):
-    background = ImageField(upload_to='internal')
+        return "Site configuration"

@@ -1,7 +1,7 @@
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
-from bucsani_school.models import Post, GalleryImage, PostImage, PostFile, Document, Description, SiteConfig
+from bucsani_school.models import Post, GalleryImage, PostImage, PostFile, Document, SiteConfig
 
 
 class PostFileSerializer(ModelSerializer):
@@ -44,12 +44,6 @@ class GallerySerializer(ModelSerializer):
 class DocumentSerializer(ModelSerializer):
     class Meta:
         model = Document
-        fields = "__all__"
-
-
-class DescriptionSerializer(ModelSerializer):
-    class Meta:
-        model = Description
         fields = "__all__"
 
 

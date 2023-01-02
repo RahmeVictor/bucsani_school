@@ -8,7 +8,7 @@ from rest_framework.serializers import (
     ValidationError,
 )
 
-from .models import User, Invite
+from .models import User
 from .utils import get_user_token
 
 
@@ -117,13 +117,3 @@ class ChangePasswordSerializer(Serializer):  # noqa
         user.set_password(password)
         user.save()
         return user
-
-
-class InviteSerializer(ModelSerializer):
-    class Meta:
-        model = Invite
-        exclude = ["generated_by"]
-
-    def create(self, validated_data):
-        user = self.context["request"].user
-        return Invite.objects.create(generated_by=user, **validated_data)
