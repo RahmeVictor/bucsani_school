@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin, ListModelMixin
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin, ListModelMixin, CreateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
@@ -27,7 +27,7 @@ class DocumentsAPI(ModelViewSet):
     serializer_class = DocumentSerializer
 
 
-class SiteConfigAPI(GenericViewSet, ListModelMixin, UpdateModelMixin, DestroyModelMixin):
+class SiteConfigAPI(GenericViewSet, ListModelMixin, UpdateModelMixin, CreateModelMixin):
     queryset = SiteConfig.objects.all()
     serializer_class = SiteConfigSerializer
 
@@ -49,3 +49,10 @@ class SiteConfigAPI(GenericViewSet, ListModelMixin, UpdateModelMixin, DestroyMod
 
         serializer = self.get_serializer(config)
         return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
