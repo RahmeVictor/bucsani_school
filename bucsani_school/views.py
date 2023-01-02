@@ -3,8 +3,9 @@ from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin, ListModel
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from bucsani_school.models import Post, GalleryImage, Document, SiteConfig
-from bucsani_school.serializers import PostSerializer, GallerySerializer, DocumentSerializer, SiteConfigSerializer
+from bucsani_school.models import Post, GalleryImage, Document, SiteConfig, PostType
+from bucsani_school.serializers import PostSerializer, GallerySerializer, DocumentSerializer, SiteConfigSerializer, \
+    PostTypeSerializer
 
 
 class PostAPI(ModelViewSet):
@@ -15,6 +16,11 @@ class PostAPI(ModelViewSet):
     #     posts = self.get_queryset() # just did this as a test
     #     serializer = self.get_serializer(posts, many=True)
     #     return Response(serializer.data)
+
+
+class PostTypeAPI(ModelViewSet):
+    queryset = PostType.objects.all()
+    serializer_class = PostTypeSerializer
 
 
 class GalleryAPI(ModelViewSet):

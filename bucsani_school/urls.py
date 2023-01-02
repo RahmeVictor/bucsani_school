@@ -5,7 +5,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 
 from bucsani_school import settings
-from bucsani_school.views import PostAPI, GalleryAPI, DocumentsAPI, SiteConfigAPI
+from bucsani_school.views import PostAPI, GalleryAPI, DocumentsAPI, SiteConfigAPI, PostTypeAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -21,6 +21,7 @@ urlpatterns = [
 # DRF router
 router = routers.DefaultRouter()
 router.register(r"post", PostAPI)
+router.register(r"post-types", PostTypeAPI)
 router.register(r"gallery", GalleryAPI)
 router.register(r"config", SiteConfigAPI)
 router.register(r"document", DocumentsAPI)

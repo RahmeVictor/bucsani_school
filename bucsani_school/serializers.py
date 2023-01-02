@@ -1,7 +1,7 @@
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
-from bucsani_school.models import Post, GalleryImage, PostImage, PostFile, Document, SiteConfig
+from bucsani_school.models import Post, GalleryImage, PostImage, PostFile, Document, SiteConfig, PostType
 
 
 class PostFileSerializer(ModelSerializer):
@@ -33,6 +33,12 @@ class PostSerializer(ModelSerializer):
 
     def get_files(self, obj: Post):
         return [PostFileSerializer(img, context=self.context).data['file'] for img in obj.files.all()]
+
+
+class PostTypeSerializer(ModelSerializer):
+    class Meta:
+        model = PostType
+        fields = "__all__"
 
 
 class GallerySerializer(ModelSerializer):
