@@ -61,3 +61,7 @@ class Description(Model):
 
     def __str__(self):
         return self.description
+
+
+class SiteConfig(Model):
+    background = ImageField(upload_to='internal')

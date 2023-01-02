@@ -4,7 +4,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from bucsani_school import settings
-from bucsani_school.views import PostAPI, GalleryAPI, DocumentsAPI, DescriptionAPI
+from bucsani_school.views import PostAPI, GalleryAPI, DocumentsAPI, DescriptionAPI, SiteConfigAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,6 +16,7 @@ urlpatterns = [
 router = routers.DefaultRouter()
 router.register(r"post", PostAPI)
 router.register(r"gallery", GalleryAPI)
+router.register(r"config", SiteConfigAPI)
 router.register(r"document", DocumentsAPI)
 router.register(r"description", DescriptionAPI)
 
