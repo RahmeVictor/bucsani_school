@@ -4,9 +4,9 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from bucsani_school.models import Post, GalleryImage, Document, SiteConfig, PostType
+from bucsani_school.models import Post, GalleryImage, Document, SiteConfig, PostType, PostFile
 from bucsani_school.serializers import PostSerializer, GallerySerializer, DocumentSerializer, SiteConfigSerializer, \
-    PostTypeSerializer
+    PostTypeSerializer, PostFileSerializer
 
 
 class PostAPI(ModelViewSet):
@@ -24,6 +24,11 @@ class PostAPI(ModelViewSet):
 class PostTypeAPI(ModelViewSet):
     queryset = PostType.objects.all()
     serializer_class = PostTypeSerializer
+
+
+class PostFileAPI(ModelViewSet):
+    queryset = PostFile.objects.all()
+    serializer_class = PostFileSerializer
 
 
 class GalleryAPI(ModelViewSet):
