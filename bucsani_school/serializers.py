@@ -1,4 +1,4 @@
-from rest_framework.fields import SerializerMethodField, IntegerField
+from rest_framework.fields import SerializerMethodField, IntegerField, CharField, ListField, JSONField
 from rest_framework.serializers import ModelSerializer
 
 from bucsani_school.models import Post, GalleryImage, PostImage, PostFile, Document, SiteConfig, PostType
@@ -25,7 +25,8 @@ class PostTypeSerializer(ModelSerializer):
 
 
 class PostSerializer(ModelSerializer):
-    images = SerializerMethodField(read_only=True)
+    # images = SerializerMethodField(read_only=True)
+    images = JSONField()
     # images = PostImageSerializer(many=True, read_only=True)
     files = PostFileSerializer(many=True, required=False)
     type_id = IntegerField(required=False, write_only=True)
@@ -35,8 +36,8 @@ class PostSerializer(ModelSerializer):
         fields = "__all__"
         depth = 1
 
-    def get_images(self, obj: Post):
-        return [PostImageSerializer(img, context=self.context).data['image'] for img in obj.images.all()]
+    # def get_images(self, obj: Post):
+    #     return [PostImageSerializer(img, context=self.context).data['image'] for img in obj.images.all()]
 
     def get_files(self, obj: Post):
         return [PostFileSerializer(img, context=self.context).data['file'] for img in obj.files.all()]
@@ -48,6 +49,10 @@ class PostSerializer(ModelSerializer):
             post_type = PostType.objects.get(pk=post_type_pk)
 
         post = self.Meta.model.objects.create(**validated_data, type=post_type)
+        # images = validated_data['images']
+        # if images:
+
+
         files = self.context['request'].FILES
         if files:
             try:
@@ -72,6 +77,7 @@ class PostSerializer(ModelSerializer):
         instance.type = post_type
         instance = super().update(instance, validated_data)
         files = self.context['request'].FILES
+        print(validated_data['images'])
         if files:
             try:
                 for f in files.getlist('files'):
