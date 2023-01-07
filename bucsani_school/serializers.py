@@ -55,6 +55,12 @@ class PostSerializer(ModelSerializer):
                     post.files.get_or_create(file=f)
             except Exception as e:
                 print(e)
+
+            try:
+                for f in files.getlist('images'):
+                    post.files.get_or_create(file=f)
+            except Exception as e:
+                print(e)
         return post
 
     def update(self, instance: Post, validated_data):
@@ -69,6 +75,12 @@ class PostSerializer(ModelSerializer):
         if files:
             try:
                 for f in files.getlist('files'):
+                    instance.files.get_or_create(file=f)
+            except Exception as e:
+                print(e)
+
+            try:
+                for f in files.getlist('images'):
                     instance.files.get_or_create(file=f)
             except Exception as e:
                 print(e)
