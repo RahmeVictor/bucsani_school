@@ -25,8 +25,8 @@ class PostTypeSerializer(ModelSerializer):
 
 
 class PostSerializer(ModelSerializer):
-    # images = SerializerMethodField(read_only=True)
-    images = JSONField()
+    images = SerializerMethodField(read_only=True)
+    images_post = JSONField(write_only=True)
     # images = PostImageSerializer(many=True, read_only=True)
     files = PostFileSerializer(many=True, required=False)
     type_id = IntegerField(required=False, write_only=True)
@@ -36,8 +36,8 @@ class PostSerializer(ModelSerializer):
         fields = "__all__"
         depth = 1
 
-    # def get_images(self, obj: Post):
-    #     return [PostImageSerializer(img, context=self.context).data['image'] for img in obj.images.all()]
+    def get_images(self, obj: Post):
+        return [PostImageSerializer(img, context=self.context).data['image'] for img in obj.images.all()]
 
     def get_files(self, obj: Post):
         return [PostFileSerializer(img, context=self.context).data['file'] for img in obj.files.all()]
@@ -77,7 +77,7 @@ class PostSerializer(ModelSerializer):
         instance.type = post_type
         instance = super().update(instance, validated_data)
         files = self.context['request'].FILES
-        print(validated_data['images'])
+        print(validated_data['images_post'])
         if files:
             try:
                 for f in files.getlist('files'):
