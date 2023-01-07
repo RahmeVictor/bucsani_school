@@ -26,8 +26,8 @@ class PostTypeSerializer(ModelSerializer):
 
 class PostSerializer(ModelSerializer):
     # images = SerializerMethodField(read_only=True)
-    images_post = JSONField(write_only=True)
-    images = PostImageSerializer(many=True, read_only=True)
+    # images_post = JSONField(write_only=True)
+    images = PostImageSerializer(many=True, required=False)
     files = PostFileSerializer(many=True, required=False)
     type_id = IntegerField(required=False, write_only=True)
 
@@ -36,11 +36,11 @@ class PostSerializer(ModelSerializer):
         fields = "__all__"
         depth = 1
 
-    def get_images(self, obj: Post):
-        return [PostImageSerializer(img, context=self.context).data['image'] for img in obj.images.all()]
-
-    def get_files(self, obj: Post):
-        return [PostFileSerializer(img, context=self.context).data['file'] for img in obj.files.all()]
+    # def get_images(self, obj: Post):
+    #     return [PostImageSerializer(img, context=self.context).data['image'] for img in obj.images.all()]
+    #
+    # def get_files(self, obj: Post):
+    #     return [PostFileSerializer(img, context=self.context).data['file'] for img in obj.files.all()]
 
     def create(self, validated_data):
         post_type = None
@@ -49,14 +49,19 @@ class PostSerializer(ModelSerializer):
             post_type = PostType.objects.get(pk=post_type_pk)
 
         post = self.Meta.model.objects.create(**validated_data, type=post_type)
-        for image in validated_data['images_post'] or []:
-            post.images.get_or_create(image=image)
+        # for image in validated_data['images_post'] or []:
+        #     post.images.get_or_create(image=image)
 
         files = self.context['request'].FILES
         if files:
             try:
                 for f in files.getlist('files'):
                     post.files.get_or_create(file=f)
+            except Exception as e:
+                print(e)
+            try:
+                for f in files.getlist('images'):
+                    post.images.get_or_create(file=f)
             except Exception as e:
                 print(e)
         return post
@@ -70,13 +75,18 @@ class PostSerializer(ModelSerializer):
         instance.type = post_type
         instance = super().update(instance, validated_data)
         files = self.context['request'].FILES
-        for image in validated_data['images_post'] or []:
-            instance.images.get_or_create(image=image)
+        # for image in validated_data['images_post'] or []:
+        #     instance.images.get_or_create(image=image)
 
         if files:
             try:
                 for f in files.getlist('files'):
                     instance.files.get_or_create(file=f)
+            except Exception as e:
+                print(e)
+            try:
+                for f in files.getlist('images'):
+                    instance.images.get_or_create(file=f)
             except Exception as e:
                 print(e)
         #PostType.objects.update_or_create(post=instance, pk=post_type_pk, defaults=post_type_data)
