@@ -26,7 +26,7 @@ class PostTypeSerializer(ModelSerializer):
 
 class PostSerializer(ModelSerializer):
     images = SerializerMethodField(read_only=True)
-    type = PostTypeSerializer()
+    type = PostTypeSerializer(required=False)
 
     # images = PostImageSerializer(many=True, read_only=True)
     files = PostFileSerializer(many=True, required=False)
