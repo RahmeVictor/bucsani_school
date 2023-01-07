@@ -29,7 +29,7 @@ class PostSerializer(ModelSerializer):
     type = PostTypeSerializer()
 
     # images = PostImageSerializer(many=True, read_only=True)
-    files = PostFileSerializer(many=True)
+    files = PostFileSerializer(many=True, required=False)
 
     class Meta:
         model = Post
