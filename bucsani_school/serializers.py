@@ -51,7 +51,7 @@ class PostSerializer(ModelSerializer):
                 post_type = PostType.objects.get(pk=post_type_pk)
 
         # image = validated_data.pop('files')
-        # print(image)
+        print(validated_data['files'])
         post = self.Meta.model.objects.create(**validated_data, type=post_type)
         return post
 
