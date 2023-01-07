@@ -51,8 +51,14 @@ class PostSerializer(ModelSerializer):
                 post_type = PostType.objects.get(pk=post_type_pk)
 
         post = self.Meta.model.objects.create(**validated_data, type=post_type)
-        print(validated_data)
-        print(self.context['request'].FILES)
+        files = self.context['request'].FILES
+        if files:
+            try:
+                print(files.getlist('files'))
+                for f in files.getlist('files'):
+                    post.files.get_or_create(file=f)
+            except Exception as e:
+                print(e)
         return post
 
     def update(self, instance: Post, validated_data):
