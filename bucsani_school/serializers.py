@@ -44,19 +44,23 @@ class PostSerializer(ModelSerializer):
         return [PostFileSerializer(img, context=self.context).data['file'] for img in obj.files.all()]
 
     def create(self, validated_data):
-        post_type_pk: int = validated_data.pop("type", None).pop("id", None)
+        type_data = validated_data.pop("type", None)
         post_type = None
-        if post_type_pk:
-            post_type = PostType.objects.get(pk=post_type_pk)
+        if type_data:
+            post_type_pk: int = type_data.pop("id", None)
+            if post_type_pk:
+                post_type = PostType.objects.get(pk=post_type_pk)
 
         post = self.Meta.model.objects.create(**validated_data, type=post_type)
         return post
 
     def update(self, instance: Post, validated_data):
-        post_type_pk: int = validated_data.pop("type", None).pop("id", None)
+        type_data = validated_data.pop("type", None)
         post_type = None
-        if post_type_pk:
-            post_type = PostType.objects.get(pk=post_type_pk)
+        if type_data:
+            post_type_pk: int = type_data.pop("id", None)
+            if post_type_pk:
+                post_type = PostType.objects.get(pk=post_type_pk)
 
         instance.type = post_type
         instance = super().update(instance, validated_data)
