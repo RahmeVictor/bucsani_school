@@ -1,5 +1,6 @@
 from rest_framework import status
 from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin, ListModelMixin, CreateModelMixin
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
@@ -11,6 +12,8 @@ from bucsani_school.serializers import PostSerializer, GallerySerializer, Docume
 class PostAPI(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+    # parser_classes = (MultiPartParser, FormParser, JSONParser)
 
     # def list(self, request, *args, **kwargs):
     #     posts = self.get_queryset() # just did this as a test

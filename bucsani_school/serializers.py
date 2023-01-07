@@ -51,6 +51,8 @@ class PostSerializer(ModelSerializer):
                 post_type = PostType.objects.get(pk=post_type_pk)
 
         post = self.Meta.model.objects.create(**validated_data, type=post_type)
+        print(validated_data)
+        print(self.context['request'].FILES)
         return post
 
     def update(self, instance: Post, validated_data):
@@ -64,6 +66,7 @@ class PostSerializer(ModelSerializer):
         instance.type = post_type
         instance = super().update(instance, validated_data)
         print(validated_data)
+        print(self.context['request'].FILES)
         #PostType.objects.update_or_create(post=instance, pk=post_type_pk, defaults=post_type_data)
         return instance
 
