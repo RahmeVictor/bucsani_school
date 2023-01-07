@@ -50,7 +50,7 @@ class PostSerializer(ModelSerializer):
 
         post = self.Meta.model.objects.create(**validated_data, type=post_type)
         for image in validated_data['images_post'] or []:
-            post.images.get_or_create(file=image)
+            post.images.get_or_create(image=image)
 
         files = self.context['request'].FILES
         if files:
@@ -71,7 +71,7 @@ class PostSerializer(ModelSerializer):
         instance = super().update(instance, validated_data)
         files = self.context['request'].FILES
         for image in validated_data['images_post'] or []:
-            instance.images.get_or_create(file=image)
+            instance.images.get_or_create(image=image)
 
         if files:
             try:
