@@ -25,9 +25,9 @@ class PostTypeSerializer(ModelSerializer):
 
 
 class PostSerializer(ModelSerializer):
-    images = SerializerMethodField(read_only=True)
+    # images = SerializerMethodField(read_only=True)
     images_post = JSONField(write_only=True)
-    # images = PostImageSerializer(many=True, read_only=True)
+    images = PostImageSerializer(many=True, read_only=True)
     files = PostFileSerializer(many=True, required=False)
     type_id = IntegerField(required=False, write_only=True)
 

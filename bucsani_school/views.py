@@ -1,12 +1,11 @@
 from rest_framework import status
-from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin, ListModelMixin, CreateModelMixin
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.mixins import UpdateModelMixin, ListModelMixin, CreateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from bucsani_school.models import Post, GalleryImage, Document, SiteConfig, PostType, PostFile
+from bucsani_school.models import Post, GalleryImage, Document, SiteConfig, PostType, PostFile, PostImage
 from bucsani_school.serializers import PostSerializer, GallerySerializer, DocumentSerializer, SiteConfigSerializer, \
-    PostTypeSerializer, PostFileSerializer
+    PostTypeSerializer, PostFileSerializer, PostImageSerializer
 
 
 class PostAPI(ModelViewSet):
@@ -29,6 +28,11 @@ class PostTypeAPI(ModelViewSet):
 class PostFileAPI(ModelViewSet):
     queryset = PostFile.objects.all()
     serializer_class = PostFileSerializer
+
+
+class PostImageAPI(ModelViewSet):
+    queryset = PostImage.objects.all()
+    serializer_class = PostImageSerializer
 
 
 class GalleryAPI(ModelViewSet):
