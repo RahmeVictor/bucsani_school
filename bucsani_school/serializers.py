@@ -26,11 +26,10 @@ class PostTypeSerializer(ModelSerializer):
 
 class PostSerializer(ModelSerializer):
     images = SerializerMethodField(read_only=True)
-    files = SerializerMethodField(read_only=True)
     type = PostTypeSerializer()
 
     # images = PostImageSerializer(many=True, read_only=True)
-    # files = PostFileSerializer(many=True, read_only=True)
+    files = PostFileSerializer(many=True)
 
     class Meta:
         model = Post
@@ -51,8 +50,8 @@ class PostSerializer(ModelSerializer):
             if post_type_pk:
                 post_type = PostType.objects.get(pk=post_type_pk)
 
-        image = validated_data.pop('files')
-        print(image)
+        # image = validated_data.pop('files')
+        # print(image)
         post = self.Meta.model.objects.create(**validated_data, type=post_type)
         return post
 
