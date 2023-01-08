@@ -61,7 +61,7 @@ class PostSerializer(ModelSerializer):
                 print(e)
             try:
                 for f in files.getlist('images'):
-                    post.images.get_or_create(file=f)
+                    post.images.get_or_create(image=f)
             except Exception as e:
                 print(e)
         return post
@@ -88,7 +88,7 @@ class PostSerializer(ModelSerializer):
             try:
                 print(files.getlist('images'))
                 for f in files.getlist('images'):
-                    instance.images.get_or_create(file=f)
+                    instance.images.get_or_create(image=f)
             except Exception as e:
                 print(e)
         #PostType.objects.update_or_create(post=instance, pk=post_type_pk, defaults=post_type_data)
