@@ -78,6 +78,7 @@ class PostSerializer(ModelSerializer):
         # for image in validated_data['images_post'] or []:
         #     instance.images.get_or_create(image=image)
 
+        print(files)
         if files:
             try:
                 for f in files.getlist('files'):
@@ -85,6 +86,7 @@ class PostSerializer(ModelSerializer):
             except Exception as e:
                 print(e)
             try:
+                print(files.getlist('images'))
                 for f in files.getlist('images'):
                     instance.images.get_or_create(file=f)
             except Exception as e:
