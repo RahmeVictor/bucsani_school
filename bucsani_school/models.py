@@ -2,7 +2,7 @@ from django.db.models import (
     Model,
     CharField,
     TextField,
-    DateTimeField, ForeignKey, CASCADE, FileField, URLField, SET_NULL, ImageField
+    DateTimeField, ForeignKey, CASCADE, FileField, SET_NULL, ImageField
 )
 
 
@@ -42,7 +42,7 @@ class PostFile(Model):
 
 
 class GalleryImage(Model):
-    image = URLField(blank=True)
+    image = ImageField(blank=True, upload_to='images')
 
 
 class Document(Model):
