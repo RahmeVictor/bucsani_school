@@ -2,7 +2,7 @@ from django.db.models import (
     Model,
     CharField,
     TextField,
-    DateTimeField, ForeignKey, CASCADE, FileField, URLField, SET_NULL
+    DateTimeField, ForeignKey, CASCADE, FileField, URLField, SET_NULL, ImageField
 )
 
 
@@ -53,7 +53,7 @@ class Document(Model):
 
 
 class SiteConfig(Model):
-    background = URLField(blank=True)
+    background = ImageField(blank=True, upload_to='images')
     description = TextField(blank=True)
     contact = TextField(blank=True)
 
