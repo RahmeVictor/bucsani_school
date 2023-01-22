@@ -1,6 +1,6 @@
-Django~=4.1.4
+Django~=4.1
 djangorestframework~=3.14.0
-Pillow~=9.3.0
+Pillow~=9.4
 django-nested-admin~=4.0.2
 django-cors-headers~=3.13.0
 drf-spectacular~=0.25.1
