@@ -14,7 +14,6 @@ class PostType(Model):
 
 
 class Post(Model):
-    preview_image = FileField(upload_to='preview_images')
     title = CharField(max_length=250)
     author = CharField(max_length=100)
     body = TextField()

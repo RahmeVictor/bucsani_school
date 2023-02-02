@@ -36,7 +36,7 @@ class PostImageAPI(ModelViewSet):
 
 
 class GalleryAPI(ModelViewSet):
-    queryset = GalleryImage.objects.all()
+    queryset = GalleryImage.objects.order_by('-pk')
     serializer_class = GallerySerializer
 
 
