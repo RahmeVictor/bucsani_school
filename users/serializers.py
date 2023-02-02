@@ -74,11 +74,11 @@ class UserCreateSerializer(ModelSerializer):
     def get_token(self, obj: User) -> str:
         return get_user_token(obj)
 
-    def validate_email(self, value):
-        if not Invite.objects.filter(email__exact=value).exists():
-            raise ValidationError("email not invited")
-
-        return value
+    # def validate_email(self, value):
+    #     if not Invite.objects.filter(email__exact=value).exists():
+    #         raise ValidationError("email not invited")
+    #
+    #     return value
 
     def validate_password(self, value):
         password_validation.validate_password(value, self.context["request"].user)

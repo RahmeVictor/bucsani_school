@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.html import format_html
 from nested_admin.nested import NestedModelAdmin, NestedStackedInline
 
 from bucsani_school.models import PostType, Post, PostImage, PostFile, GalleryImage, Document, SiteConfig

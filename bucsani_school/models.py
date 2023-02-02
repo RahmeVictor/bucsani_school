@@ -26,7 +26,7 @@ class Post(Model):
 
 
 class PostImage(Model):
-    image = FileField(upload_to='images')
+    image = ImageField(upload_to='images')
     post = ForeignKey(Post, on_delete=CASCADE, related_name='images')
 
     def __str__(self):

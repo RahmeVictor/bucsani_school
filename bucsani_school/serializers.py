@@ -1,4 +1,4 @@
-from rest_framework.fields import SerializerMethodField, IntegerField, CharField, ListField, JSONField
+from rest_framework.fields import IntegerField
 from rest_framework.serializers import ModelSerializer
 
 from bucsani_school.models import Post, GalleryImage, PostImage, PostFile, Document, SiteConfig, PostType
@@ -91,7 +91,7 @@ class PostSerializer(ModelSerializer):
                     instance.images.get_or_create(image=f)
             except Exception as e:
                 print(e)
-        #PostType.objects.update_or_create(post=instance, pk=post_type_pk, defaults=post_type_data)
+        # PostType.objects.update_or_create(post=instance, pk=post_type_pk, defaults=post_type_data)
         return instance
 
 
